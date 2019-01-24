@@ -18,11 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('register', 'UserController@register');
-Route::post('login', 'UserController@login');
-Route::get('open', 'DataController@open');
+Route::post('login', 'UserController@authenticate');
 
 Route::group(['middleware' => ['jwt.verify']], function() {
-  Route::get('user', 'UserController@getAuthenticatedUser');
-  Route::get('closed', 'DataController@closed');
+  Route::get('user', 'UserController@getAuthenticatedUserResponse');
+  Route::get('stats', 'TrainerController@getStats');
+  Route::post('stats', 'TrainerController@updateStats');
 });
 
