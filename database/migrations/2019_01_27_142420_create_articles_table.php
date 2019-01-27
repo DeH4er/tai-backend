@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStatsTable extends Migration
+class CreateArticlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,19 @@ class CreateStatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('stats', function (Blueprint $table) {
+        Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('user_id')
-              ->unsigned()
-              ->nullable();
-            $table->foreign('user_id')
+            $table->string('title');
+            $table->text('content');
+            $table->string('description');
+
+            $table->integer('author_id');
+            $table->foreign('author_id')
               ->references('id')
               ->on('users')
-              ->onDelete('cascade');
+              ->onDelete('cascade');  
 
-            $table->integer('errors');
             $table->timestamps();
         });
     }
@@ -36,6 +37,6 @@ class CreateStatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stats');
+        Schema::dropIfExists('articles');
     }
 }

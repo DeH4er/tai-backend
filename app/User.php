@@ -36,13 +36,8 @@ class User extends Authenticatable implements JWTSubject
     return [];
   }
 
-  public function dict() {
-    return $this->belongsTo('App\Dict');
-  }
-
-  public function stats() {
-    return $this->hasOne('App\Stats');
-
+  public function articles() {
+    return $this->hasMany('App\Article');
   }
 
 }

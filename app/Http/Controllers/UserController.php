@@ -36,19 +36,11 @@ class UserController extends Controller
       return response()->json($validator->errors()->toJson(), 400);
     }
 
-    $stats = new Stats;
-    $stats->errors = 0;
-    $stats->save();
-
     $user = User::create([
       'name' => $request->get('name'),
       'email' => $request->get('email'),
-      'password' => Hash::make($request->get('password')),
-      'level' => 0
+      'password' => Hash::make($request->get('password'))
     ]);
-
-    $user->stats()->save($stats);
-    $user->save();
 
     $token = JWTAuth::fromUser($user);
 
@@ -57,7 +49,7 @@ class UserController extends Controller
 
   public function getAuthenticatedUserResponse() {
     $user = $this->getAuthenticatedUser();
-    return response()->json(compact('user'));
+    return response()->json($user, 200);
   }
 
   public static function getAuthenticatedUser() {

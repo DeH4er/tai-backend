@@ -14,26 +14,7 @@ class UpdateUserTable extends Migration
     public function up()
     {
       Schema::table('users', function (Blueprint $table) {
-        $table->integer('dict_id')
-          ->unsigned()
-          ->nullable();
-        $table->foreign('dict_id')
-          ->references('id')
-          ->on('dict')
-          ->onDelete('cascade');
-
-        $table->integer('stats_id')
-          ->unsigned()
-          ->nullable();
-        $table->foreign('stats_id')
-          ->references('id')
-          ->on('stats')
-          ->onDelete('cascade');
-
-        $table->integer('level')
-          ->default('1');
       });
-
     }
 
     /**
@@ -44,9 +25,6 @@ class UpdateUserTable extends Migration
     public function down()
     {
        Schema::table('users', function (Blueprint $table) {
-        $table->dropColumn('dict_id');
-        $table->dropColumn('stats_id');
-        $table->dropColumn('level');
       });
     }
 }

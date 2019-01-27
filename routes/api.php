@@ -20,9 +20,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@authenticate');
 
+Route::get('articles', 'ArticleController@getArticles');
+Route::get('article/{id}', 'ArticleController@getArticle');
+
 Route::group(['middleware' => ['jwt.verify']], function() {
   Route::get('user', 'UserController@getAuthenticatedUserResponse');
-  Route::get('stats', 'TrainerController@getStats');
-  Route::post('stats', 'TrainerController@updateStats');
+  Route::post('articles', 'ArticleController@createArticle');
+  Route::put('article/{id}', 'ArticleController@editArticle');
+  Route::delete('article/{id}', 'ArticleController@deleteArticle');
 });
 
